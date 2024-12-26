@@ -23,6 +23,16 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.jetpackcompose.viewmodel.WeatherViewModel
 
+/**
+ * SearchBarSample is a composable function that provides a search bar with dynamic suggestions
+ * and integration with a weather API. It supports recent search suggestions and different modes
+ * (e.g., Home and Forecast).
+ *
+ * @param weatherViewModel The [WeatherViewModel] responsible for fetching weather and forecast data.
+ * @param selectedMenu The currently selected menu option, used to determine the type of data to fetch.
+ * @param apiKey The API key used for making requests to the weather API.
+ * @param onQueryChanged Callback triggered when the search query is updated.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBarSample(
@@ -37,7 +47,6 @@ fun SearchBarSample(
     var cityName by rememberSaveable { mutableStateOf("") }
 
     var recentSearches by rememberSaveable { mutableStateOf(listOf<String>()) }
-
     val currentWeather by weatherViewModel.currentWeather.collectAsState()
 
     Box(
@@ -51,6 +60,18 @@ fun SearchBarSample(
                 .fillMaxWidth()
                 .align(Alignment.TopCenter)
         ) {
+            // to use currentweather uncomment this part
+            /*
+            currentWeather?.let {
+                val temperature = it.main.temp // Access the temperature
+                val description = it.weather.firstOrNull()?.description ?: "No description available" // Access the description
+                Text(
+                    text = "Current Weather: ${temperature}°C, $description",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+            */
             SearchBar(
                 modifier = Modifier.fillMaxWidth(),
                 inputField = {
@@ -97,7 +118,7 @@ fun SearchBarSample(
                             val resultText = recentSearches[idx]
                             ListItem(
                                 headlineContent = { Text(resultText) },
-                                leadingContent = { Icon(Icons.Filled.Star, contentDescription = null) },
+                                leadingContent = { Icon(Icons.Filled.Star , contentDescription = null) },
                                 colors = ListItemDefaults.colors(containerColor = Color.Transparent),
                                 modifier = Modifier
                                     .clickable {

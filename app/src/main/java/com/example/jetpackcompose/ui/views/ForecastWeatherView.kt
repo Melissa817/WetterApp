@@ -26,7 +26,6 @@ fun ForecastWeatherView(forecast: List<ForecastItem>) {
     val weatherViewModel: WeatherViewModel = viewModel()
     val errorMessage by weatherViewModel.errorMessage.collectAsState()
 
-    // Retrieve hometown and apiKey from DataStore
     LaunchedEffect(Unit) {
         context.dataStore.data.collect { preferences ->
             hometown = preferences[Keys.HOMETOWN_KEY] ?: ""
@@ -103,22 +102,19 @@ fun ForecastWeatherView(forecast: List<ForecastItem>) {
                     .align(Alignment.CenterHorizontally)
             )
 
-            // Display forecast data
             LazyColumn(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                ////////////////////////////////////
 
-                //TODO Zeige die Wettervorhersage in dieser Liste an (nutze die WeatherCard Komponente)
-                // Der Text unten darf entfernt werden.
-
-                ////////////////////////////////////
+                items(forecast.size) { index ->
+                    WeatherCard(forecast[index])
+                }
             }
 
         }
 
         Text(
-            text = "TODO: Implement me :)",
+            text = "Weather Forecast)",
             style = MaterialTheme.typography.headlineLarge.copy(
                 fontSize = 18.sp,
                 color = Color.Black

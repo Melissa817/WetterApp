@@ -13,6 +13,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 
+/**
+ * BottomNavBar
+ * A customizable bottom navigation bar for a Jetpack Compose application. It allows for easy navigation
+ * between different sections of the app, such as Home, Forecast, and Settings.
+ * @param selectedItem The index of the currently selected item.
+ * @param onItemSelected Callback invoked when a navigation item is selected, with the index of the selected item.
+ * @param modifier [Modifier] to be applied to the BottomNavigation component.
+ * @param backgroundColor The background color of the navigation bar.
+ * @param selectedTintColor The tint color for selected navigation items.
+ * @param unselectedTintColor The tint color for unselected navigation items.
+ */
 @Composable
 fun BottomNavBar(
     selectedItem: Int,
@@ -46,7 +57,14 @@ fun BottomNavBar(
         )
     }
 }
-
+/**
+ * NavigationIcon
+ * A composable function that displays an icon with a tint color based on its selection state.
+ * @param icon The [ImageVector] representing the icon to display.
+ * @param isSelected Whether the icon is currently selected.
+ * @param selectedTintColor The tint color for the icon when it is selected.
+ * @param unselectedTintColor The tint color for the icon when it is not selected.
+ */
 @Composable
 fun NavigationIcon(
     icon: ImageVector,

@@ -17,7 +17,11 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.jetpackcompose.data.ForecastItem
 import com.example.jetpackcompose.ui.views.convertUnixToTime
-
+/**
+ * WeatherCard is a composable function that displays weather information for a specific forecast item.
+ * It shows the weather icon, date and time, temperature, and a brief description of the weather.
+ * @param forecastItem The [ForecastItem] containing weather data to be displayed.
+ */
 @Composable
 fun WeatherCard(forecastItem: ForecastItem) {
     Row(
@@ -30,6 +34,7 @@ fun WeatherCard(forecastItem: ForecastItem) {
             .clip(RoundedCornerShape(16.dp)),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        // Display the weather icon
         Image(
             painter = rememberAsyncImagePainter("https://openweathermap.org/img/wn/${forecastItem.weather.firstOrNull()?.icon}@2x.png"),
             contentDescription = null,
@@ -38,7 +43,7 @@ fun WeatherCard(forecastItem: ForecastItem) {
         )
 
         Spacer(modifier = Modifier.width(24.dp))
-
+        // Display the date/time and temperature information
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start
