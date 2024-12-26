@@ -18,6 +18,12 @@ import com.example.jetpackcompose.viewmodel.WeatherViewModel
 import com.example.jetpackcompose.ui.components.SearchBarSample
 import com.example.jetpackcompose.ui.components.WeatherCard
 
+/**
+ * ForecastWeatherView is a composable function that displays the weather forecast for a specified location.
+ * It includes a search bar for querying forecasts and displays a list of forecast items.
+ *
+ * @param forecast A list of [ForecastItem] containing the weather forecast data.
+ */
 @Composable
 fun ForecastWeatherView(forecast: List<ForecastItem>) {
     val context = LocalContext.current
@@ -26,6 +32,7 @@ fun ForecastWeatherView(forecast: List<ForecastItem>) {
     val weatherViewModel: WeatherViewModel = viewModel()
     val errorMessage by weatherViewModel.errorMessage.collectAsState()
 
+    // Collect hometown and API key from data store
     LaunchedEffect(Unit) {
         context.dataStore.data.collect { preferences ->
             hometown = preferences[Keys.HOMETOWN_KEY] ?: ""
@@ -39,6 +46,7 @@ fun ForecastWeatherView(forecast: List<ForecastItem>) {
 
     val searchQuery = rememberSaveable { mutableStateOf("") }
 
+    // Search bar for querying forecast data
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -60,6 +68,7 @@ fun ForecastWeatherView(forecast: List<ForecastItem>) {
         )
     }
 
+    // Display error message if available
     errorMessage?.let {
         Text(
             text = it,
@@ -72,6 +81,7 @@ fun ForecastWeatherView(forecast: List<ForecastItem>) {
         )
     }
 
+    // Main content layout
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -81,6 +91,7 @@ fun ForecastWeatherView(forecast: List<ForecastItem>) {
     ) {
         Spacer(modifier = Modifier.height(24.dp))
 
+        // Display message if no search query or hometown is set
         if (searchQuery.value.isEmpty() && hometown.isEmpty()) {
             Text(
                 text = "Set your hometown in settings",
@@ -91,6 +102,7 @@ fun ForecastWeatherView(forecast: List<ForecastItem>) {
                 modifier = Modifier.padding(16.dp)
             )
         } else if (forecast.isNotEmpty()) {
+            // Display forecast title
             Text(
                 text = "Forecast for ${searchQuery.value.takeIf { it.isNotEmpty() } ?: hometown}",
                 style = MaterialTheme.typography.headlineLarge.copy(
@@ -102,19 +114,19 @@ fun ForecastWeatherView(forecast: List<ForecastItem>) {
                     .align(Alignment.CenterHorizontally)
             )
 
+            // Display the list of forecast items
             LazyColumn(
                 modifier = Modifier.fillMaxWidth()
             ) {
-
                 items(forecast.size) { index ->
                     WeatherCard(forecast[index])
                 }
             }
-
         }
 
+        // Additional text at the bottom
         Text(
-            text = "Weather Forecast)",
+            text = "Weather Forecast",
             style = MaterialTheme.typography.headlineLarge.copy(
                 fontSize = 18.sp,
                 color = Color.Black

@@ -25,6 +25,12 @@ import com.example.jetpackcompose.service.PopupService
 
 val Context.dataStore by preferencesDataStore(name = "settings")
 
+/**
+ * SettingsView is a composable function that allows users to configure their settings,
+ * including hometown, API token, and push notification timer options.
+ *
+ * @param onSave A callback function that is invoked when the settings are saved.
+ */
 @Composable
 fun SettingsView(onSave: () -> Unit) {
     val context = LocalContext.current
@@ -34,6 +40,7 @@ fun SettingsView(onSave: () -> Unit) {
     var selectedTimerOption by remember { mutableStateOf("Deactivated") }
     val timerOptions = listOf("Deactivated", "10s", "30s", "60s", "30 min", "60 min")
 
+    // Load settings from data store
     LaunchedEffect(Unit) {
         context.dataStore.data.map { preferences ->
             val apiToken = preferences[Keys.API_TOKEN_KEY] ?: ""
@@ -47,30 +54,59 @@ fun SettingsView(onSave: () -> Unit) {
         }
     }
 
+    // Main layout for settings
     Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         Column(modifier = Modifier.fillMaxWidth().align(Alignment.TopCenter)) {
+            // Hometown input
             Text("Your hometown:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(8.dp))
-            TextField(value = hometown, onValueChange = { hometown = it }, label = { Text("Hometown") }, textStyle = TextStyle(fontSize = 20.sp), modifier = Modifier.fillMaxWidth())
+            TextField(
+                value = hometown,
+                onValueChange = { hometown = it },
+                label = { Text("Hometown") },
+                textStyle = TextStyle(fontSize = 20.sp),
+                modifier = Modifier.fillMaxWidth()
+            )
             Spacer(modifier = Modifier.height(16.dp))
 
+            // API Token input
             Text("API Token:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(8.dp))
-            TextField(value = apiToken, onValueChange = { apiToken = it }, label = { Text("API Token") }, textStyle = TextStyle(fontSize = 20.sp), modifier = Modifier.fillMaxWidth())
+            TextField(
+                value = apiToken,
+                onValueChange = { apiToken = it },
+                label = { Text("API Token") },
+                textStyle = TextStyle(fontSize = 20.sp),
+                modifier = Modifier.fillMaxWidth()
+            )
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Timer option selection
             Text("Push notification timer:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(8.dp))
 
             var expanded by remember { mutableStateOf(false) }
             Box(modifier = Modifier.fillMaxWidth()) {
-                TextField(value = selectedTimerOption, onValueChange = { selectedTimerOption = it }, label = { Text("Timer Option") }, textStyle = TextStyle(fontSize = 20.sp), modifier = Modifier.fillMaxWidth(), readOnly = true, trailingIcon = {
-                    IconButton(onClick = { expanded = !expanded }) {
-                        Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
+                TextField(
+                    value = selectedTimerOption,
+                    onValueChange = { selectedTimerOption = it },
+                    label = { Text("Timer Option") },
+                    textStyle = TextStyle(fontSize = 20.sp),
+                    modifier = Modifier.fillMaxWidth(),
+                    readOnly = true,
+                    trailingIcon = {
+                        IconButton(onClick = { expanded = !expanded }) {
+                            Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
+                        }
                     }
-                })
+                )
 
-                DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }, modifier = Modifier.fillMaxWidth()) {
+                // Dropdown menu for timer options
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
                     timerOptions.forEach { option ->
                         DropdownMenuItem(onClick = {
                             selectedTimerOption = option
@@ -83,6 +119,7 @@ fun SettingsView(onSave: () -> Unit) {
             Spacer(modifier = Modifier.height(24.dp))
         }
 
+        // Save button
         Button(
             onClick = {
                 scope.launch {

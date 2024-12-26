@@ -20,7 +20,6 @@ class MainActivity : ComponentActivity() {
     /**
      * Called when the activity is created. Initializes the activity, handles the popup service,
      * and sets the content view to the WeatherApp composable.
-     *
      * @param savedInstanceState A Bundle containing the activity's previously saved state.
      */
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -23,6 +23,14 @@ import java.util.Locale
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.jetpackcompose.ui.components.SearchBarSample
 
+/**
+ * CurrentWeatherView is a composable function that displays the current weather information
+ * for a specified location. It shows the weather icon, location name, temperature, and other
+ * relevant weather details.
+ *
+ * @param currentWeather The [WeatherData] object containing current weather information.
+ * @param iconUrl The URL of the weather icon to be displayed.
+ */
 @Composable
 fun CurrentWeatherView(currentWeather: WeatherData?, iconUrl: String?) {
 
@@ -36,6 +44,7 @@ fun CurrentWeatherView(currentWeather: WeatherData?, iconUrl: String?) {
 
     val context = LocalContext.current
 
+    // Collect hometown and API key from data store
     LaunchedEffect(Unit) {
         context.dataStore.data.collect { preferences ->
             hometown = preferences[Keys.HOMETOWN_KEY] ?: ""
@@ -48,6 +57,7 @@ fun CurrentWeatherView(currentWeather: WeatherData?, iconUrl: String?) {
 
     val searchQuery = rememberSaveable { mutableStateOf("") }
 
+    // Search bar for querying weather data
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -65,6 +75,7 @@ fun CurrentWeatherView(currentWeather: WeatherData?, iconUrl: String?) {
         )
     }
 
+    // Display error message if available
     errorMessage?.let {
         Text(
             text = it,
@@ -77,6 +88,7 @@ fun CurrentWeatherView(currentWeather: WeatherData?, iconUrl: String?) {
         )
     }
 
+    // Display current weather information if available
     if (searchQuery.value.isNotEmpty() || hometown.isNotEmpty()) {
         currentWeather?.let {
             Column(
@@ -111,6 +123,7 @@ fun CurrentWeatherView(currentWeather: WeatherData?, iconUrl: String?) {
                     }
                 }
 
+                // Function to create a row for displaying weather information
                 @Composable
                 fun createWeatherInfoRow(label: String, value: String) {
                     Row(
@@ -127,7 +140,7 @@ fun CurrentWeatherView(currentWeather: WeatherData?, iconUrl: String?) {
                         ) {
                             Text(
                                 text = label,
-                                style = MaterialTheme.typography.bodySmall.copy(fontSize = 22.sp),
+                                style = MaterialTheme .typography.bodySmall.copy(fontSize = 22.sp),
                                 color = Color.Gray,
                                 modifier = Modifier.fillMaxWidth()
                             )
