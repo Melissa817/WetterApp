@@ -34,7 +34,6 @@ class WeatherViewModel : ViewModel() {
 
     /**
      * Fetches current weather data for the specified city using the provided API key.
-     *
      * @param city The name of the city for which to fetch weather data.
      * @param apiKey The API key for authenticating the request.
      */
@@ -57,7 +56,6 @@ class WeatherViewModel : ViewModel() {
 
     /**
      * Fetches forecast data for the specified city using the provided API key.
-     *
      * @param city The name of the city for which to fetch forecast data.
      * @param apiKey The API key for authenticating the request.
      */
@@ -79,7 +77,6 @@ class WeatherViewModel : ViewModel() {
 
     /**
      * Fetches the URL for the weather icon based on the provided icon ID.
-     *
      * @param iconId The ID of the weather icon.
      */
     private fun fetchWeatherIcon(iconId: String) {
