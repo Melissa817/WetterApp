@@ -28,7 +28,6 @@ val Context.dataStore by preferencesDataStore(name = "settings")
 /**
  * SettingsView is a composable function that allows users to configure their settings,
  * including hometown, API token, and push notification timer options.
- *
  * @param onSave A callback function that is invoked when the settings are saved.
  */
 @Composable

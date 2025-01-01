@@ -27,7 +27,6 @@ import com.example.jetpackcompose.ui.components.SearchBarSample
  * CurrentWeatherView is a composable function that displays the current weather information
  * for a specified location. It shows the weather icon, location name, temperature, and other
  * relevant weather details.
- *
  * @param currentWeather The [WeatherData] object containing current weather information.
  * @param iconUrl The URL of the weather icon to be displayed.
  */

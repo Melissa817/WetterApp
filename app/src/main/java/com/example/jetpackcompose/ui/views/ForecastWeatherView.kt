@@ -21,7 +21,6 @@ import com.example.jetpackcompose.ui.components.WeatherCard
 /**
  * ForecastWeatherView is a composable function that displays the weather forecast for a specified location.
  * It includes a search bar for querying forecasts and displays a list of forecast items.
- *
  * @param forecast A list of [ForecastItem] containing the weather forecast data.
  */
 @Composable

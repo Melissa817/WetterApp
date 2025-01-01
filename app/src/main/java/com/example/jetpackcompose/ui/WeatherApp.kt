@@ -16,7 +16,6 @@ import com.example.jetpackcompose.ui.views.SettingsView
 /**
  * WeatherApp is a composable function that serves as the main user interface for the weather application.
  * It displays the current weather, forecast, and settings views based on the selected navigation item.
- *
  * @param viewModel The [WeatherViewModel] that provides weather data and manages the application's state.
  */
 @Composable
